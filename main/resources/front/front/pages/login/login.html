@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../../xznstatic/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="../../xznstatic/css/login.css"/>
+    <style type="text/css">
+        .login {
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+            height: 100vh; /* 使用视口高度单位vh */
+            width: 100vw; /* 使用视口宽度单位vw */
+            background: url(https://images.unsplash.com/photo-1670405564800-bbb09765317b?q=80&w=2620&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) center center / cover no-repeat;
+            overflow: hidden; /* 防止滚动条出现 */
+        }
+
+        .login form {
+
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(30, 144, 255, .8);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 10px; /* 添加边距以避免紧贴屏幕边缘 */
+            width: 300px;
+        }
+        /* 其余样式保持不变 */
+        .msg-warn {
+            padding: 15px 0;
+            margin-bottom: 20px;
+            color: rgba(77, 79, 54, 1);
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            width: 80%;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .login .form-item {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px; /* 调整内部元素间距 */
+            width: 100%; /* 使输入框宽度符合容器 */
+        }
+
+        .login .btn-submit {
+            width: 75%;
+            height: 44px; /* 与账号密码框相同的高度 */
+            background-color: #F9AA33; /* layui 蓝色主题 */
+            color: white;
+            border-radius: 5px; /* 与输入框相同的边框圆角 */
+            margin-top: 20px; /* 在按钮上方添加空间 */
+            margin-bottom: 30px; /* 在按钮下方添加空间 */
+        }
+
+        .login form p.txt {
+            width: 100%;
+            margin: 0;
+        }
+        .login .txt {
+            text-align: center;
+            margin-top: 15px; /* 在注册链接上方添加空间 */
+        }
+    </style>
+</head>
+<body>
+
+<div id="app" class="login">
+    <form id="loginForm" class="layui-form login-form">
+        <!-- 消息警告区域 -->
+        <div class="msg-warn title" v-if="true">携手共筑美好校园</div>
+
+        <!-- 用户名输入区域 -->
+        <div class="form-item">
+            <input type="text" name="username" required lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+        </div>
+
+        <!-- 密码输入区域 -->
+        <div class="form-item">
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+
+        <!-- 登录按钮 -->
+        <button type="submit" class="layui-btn btn-submit" lay-submit lay-filter="login">登录</button>
+
+        <!-- 注册链接（根据实际情况展示） -->
+        <p class="txt">
+            <a v-if="item.hasFrontRegister == '是'" v-for="(item, index) in menu" :key="index" :href="'javascript:registerClick(\''+item.tableName+'\')'">
+                注册{{item.roleName.replace('注册','')}}
+            </a>
+        </p>
+    </form>
+</div>
+
+<script src="../../layui/layui.js"></script>
+<script src="../../js/vue.js"></script>
+<!-- 组件配置信息 -->
+<script src="../../js/config.js"></script>
+<!-- 扩展插件配置信息 -->
+<script src="../../modules/config.js"></script>
+<!-- 工具方法 -->
+<script src="../../js/utils.js"></script>
+
+<script type="text/javascript">
+    var vue = new Vue({
+        el: '#app',
+        data: {
+            menu: menu,
+            roles: []
+        },
+        created() {
+            this.menu.forEach((item) => {
+                if (item.hasFrontLogin == '是') {
+                    this.roles.push(item);
+                }
+            });
+        },
+        methods: {
+            jump: jump
+        }
+    });
+
+    layui.use(['layer', 'element', 'carousel', 'form', 'http', 'jquery'], function () {
+        var layer = layui.layer;
+        var element = layui.element;
+        var carousel = layui.carousel;
+        var form = layui.form;
+        var http = layui.http;
+        var $ = layui.jquery;
+
+        form.on('submit(login)', function (data) {
+            var field = data.field;
+            var role = field.role || (vue.roles.length == 1 ? vue.roles[0].tableName : undefined);
+
+            if (!role) {
+                layer.msg('请选择登录用户类型', { time: 2000, icon: 5 });
+                return false;
+            }
+
+            http.request(role + '/login', 'get', field, function (res) {
+                layer.msg('登录成功', { time: 2000, icon: 6 });
+
+                localStorage.setItem('Token', res.token);
+                var roleName = $('#role:checked').attr('title') || vue.roles[0].roleName;
+                localStorage.setItem('role', roleName);
+                localStorage.setItem('userTable', role);
+                localStorage.setItem('sessionTable', role);
+                localStorage.setItem('adminName', field.username);
+
+                http.request(role + '/session', 'get', {}, function (res) {
+                    localStorage.setItem('userid', res.data.id);
+                    if (res.data.vip) {
+                        localStorage.setItem('vip', res.data.vip);
+                    }
+                    window.location.href = '../../index.html';
+                });
+            });
+
+            return false;
+        });
+    });
+
+    function registerClick(tablename) {
+        window.location.href = '../' + tablename + '/register.html?tablename=' + tablename;
+    }
+</script>
+
+
+
+
+
+</script>
+</body>
+</html>

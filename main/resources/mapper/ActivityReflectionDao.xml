@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.ActivityReflectionDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.ActivityReflectionEntity" id="activityreflectionMap">
+        <result property="activityname" column="activityname"/>
+        <result property="activitytype" column="activitytype"/>
+        <result property="tupian" column="tupian"/>
+        <result property="reflection" column="reflection"/>
+        <result property="publishtime" column="publishtime"/>
+        <result property="userid" column="userid"/>
+    </resultMap>
+
+	<select id="selectListVO"
+		resultType="com.entity.vo.ActivityReflectionVO" >
+		SELECT * FROM activityreflection  activityreflection
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectVO"
+		resultType="com.entity.vo.ActivityReflectionVO" >
+		SELECT  activityreflection.* FROM activityreflection  activityreflection
+ 		<where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+    <select id="selectListView"
+		resultType="com.entity.view.ActivityReflectionView" >
+
+		SELECT  activityreflection.* FROM activityreflection  activityreflection
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.ActivityReflectionView" >
+		SELECT * FROM activityreflection  activityreflection <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+</mapper>
