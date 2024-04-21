@@ -1,0 +1,279 @@
+/*
+SQLyog Ultimate v10.00 Beta1
+MySQL - 5.7.35 : Database - volunteermanagement
+*********************************************************************
+*/
+
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`volunteermanagement` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+
+USE `volunteermanagement`;
+
+/*Table structure for table `activityinfo` */
+
+DROP TABLE IF EXISTS `activityinfo`;
+
+CREATE TABLE `activityinfo` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `addtime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `activityname` varchar(255) DEFAULT NULL,
+  `activitytype` varchar(255) DEFAULT NULL,
+  `tupian` varchar(255) DEFAULT NULL,
+  `time` varchar(255) DEFAULT NULL,
+  `people` int(11) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `introduction` longtext,
+  `is_Reviewed` varchar(255) DEFAULT NULL,
+  `review_Response` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='活动信息';
+
+/*Data for the table `activityinfo` */
+
+insert  into `activityinfo`(`id`,`addtime`,`activityname`,`activitytype`,`tupian`,`time`,`people`,`location`,`introduction`,`is_Reviewed`,`review_Response`) values (1,'2022-05-06 08:34:21','驱蚊器','活动类型1','upload/activityInfoImage1.png','2024-04-30 00:00:00',4,'阿斯顿','阿斯顿','是',''),(2,'2022-05-06 08:34:21','活动名称2','活动类型2','upload/activityInfoImage2.png','2024-05-06',1,'活动场地2','活动介绍2','是',''),(3,'2022-05-06 08:34:21','活动名称3','活动类型3','upload/activityInfoImage3.png','2024-05-06',2,'活动场地3','活动介绍3','是',''),(4,'2022-05-06 08:34:21','活动名称4','活动类型4','upload/activityInfoImage4.png','2024-05-06',4,'活动场地4','活动介绍4','是',''),(5,'2022-05-06 08:34:21','活动名称5','活动类型5','upload/activityInfoImage5.png','2024-05-06',5,'活动场地5','活动介绍5','是',''),(6,'2022-05-06 08:34:21','活动名称6','活动类型6','upload/activityInfoImage6.png','2024-05-06 00:00:00',5,'活动场地6','活动介绍6','是','');
+
+/*Table structure for table `activitynotification` */
+
+DROP TABLE IF EXISTS `activitynotification`;
+
+CREATE TABLE `activitynotification` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `title` varchar(255) DEFAULT NULL,
+  `studentid` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `phonenumber` varchar(255) DEFAULT NULL,
+  `notificationContent` longtext,
+  `notificationTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='活动通知';
+
+/*Data for the table `activitynotification` */
+
+/*Table structure for table `activityreflection` */
+
+DROP TABLE IF EXISTS `activityreflection`;
+
+CREATE TABLE `activityreflection` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `activityname` varchar(255) DEFAULT NULL,
+  `activitytype` varchar(255) DEFAULT NULL,
+  `tupian` varchar(255) DEFAULT NULL,
+  `reflection` longtext,
+  `publishtime` datetime DEFAULT NULL,
+  `userid` bigint(20) DEFAULT NULL COMMENT '用户id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='活动心得';
+
+/*Data for the table `activityreflection` */
+
+insert  into `activityreflection`(`id`,`addtime`,`activityname`,`activitytype`,`tupian`,`reflection`,`publishtime`,`userid`) values (1,'2022-05-06 08:34:21','活动名称1','活动类型1','upload/activityShareImage1.png','心得分享1','2022-05-06 08:34:21',1),(2,'2022-05-06 08:34:21','活动名称2','活动类型2','upload/activityShareImage2.png','心得分享2','2022-05-06 08:34:21',2),(3,'2022-05-06 08:34:21','活动名称3','活动类型3','upload/activityShareImage3.png','心得分享3','2022-05-06 08:34:21',3),(4,'2022-05-06 08:34:21','活动名称4','活动类型4','upload/activityShareImage4.png','心得分享4','2022-05-06 08:34:21',4),(5,'2022-05-06 08:34:21','活动名称5','活动类型5','upload/activityShareImage5.png','心得分享5','2022-05-06 08:34:21',5),(6,'2022-05-06 08:34:21','活动名称6','活动类型6','upload/activityShareImage6.png','心得分享6','2022-05-06 08:34:21',6);
+
+/*Table structure for table `activityregistration` */
+
+DROP TABLE IF EXISTS `activityregistration`;
+
+CREATE TABLE `activityregistration` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `activityname` varchar(255) DEFAULT NULL,
+  `activitytype` varchar(255) DEFAULT NULL,
+  `people` int(11) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `registrationtime` datetime DEFAULT NULL,
+  `studentid` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `phonenumber` varchar(255) DEFAULT NULL,
+  `is_Reviewed` varchar(255) DEFAULT NULL,
+  `review_Response` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1713395056128 DEFAULT CHARSET=utf8 COMMENT='活动报名';
+
+/*Data for the table `activityregistration` */
+
+insert  into `activityregistration`(`id`,`addtime`,`activityname`,`activitytype`,`people`,`description`,`registrationtime`,`studentid`,`name`,`phonenumber`,`is_Reviewed`,`review_Response`) values (41,'2022-05-06 08:34:21','活动名称1','活动类型1',1,'报名说明1','2022-05-06 08:34:21','学号1','姓名1','13823888881','是',''),(42,'2022-05-06 08:34:21','活动名称2','活动类型2',1,'报名说明2','2022-05-06 08:34:21','学号2','姓名2','13823888882','是',''),(43,'2022-05-06 08:34:21','活动名称3','活动类型3',1,'报名说明3','2022-05-06 08:34:21','学号3','姓名3','13823888883','是',''),(45,'2022-05-06 08:34:21','活动名称5','活动类型5',1,'报名说明5','2022-05-06 08:34:21','学号5','姓名5','13823888885','是',''),(46,'2022-05-06 08:34:21','活动名称6','活动类型6',1,'报名说明6','2022-05-06 08:34:21','学号6','姓名6','13823888886','是',''),(1712096947936,'2024-04-03 06:29:07','活动名称1','活动类型1',1,'xiangqu','2024-04-03 06:28:41','12345678','nnn','12345678912','否',NULL),(1713391709970,'2024-04-18 06:08:29','','活动类型1',1,'asd','2024-04-18 06:08:22','','nsk','','否',NULL),(1713391810877,'2024-04-18 06:10:10','','活动类型2',1,'asda','2024-04-18 06:10:06','','nsk','','否',NULL),(1713391846596,'2024-04-18 06:10:46','','活动类型3',1,'asdasd','2024-04-18 06:10:44','','nsk','','否',NULL),(1713392279824,'2024-04-18 06:17:59','','活动类型1',1,'a\'d\'sads','2024-04-18 06:17:53','','nsk','','否',NULL),(1713395056127,'2024-04-18 07:04:15','','活动类型6',1,'啊实打实','2024-04-18 07:04:11','','nsk','','否',NULL);
+
+/*Table structure for table `activitytype` */
+
+DROP TABLE IF EXISTS `activitytype`;
+
+CREATE TABLE `activitytype` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `activitytype` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='活动类型';
+
+/*Data for the table `activitytype` */
+
+insert  into `activitytype`(`id`,`addtime`,`activitytype`) values (21,'2022-05-06 08:34:21','活动类型1'),(22,'2022-05-06 08:34:21','活动类型2'),(23,'2022-05-06 08:34:21','活动类型3'),(24,'2022-05-06 08:34:21','活动类型4'),(25,'2022-05-06 08:34:21','活动类型5'),(26,'2022-05-06 08:34:21','活动类型6');
+
+/*Table structure for table `config` */
+
+DROP TABLE IF EXISTS `config`;
+
+CREATE TABLE `config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(100) NOT NULL COMMENT '配置参数名称',
+  `value` varchar(100) DEFAULT NULL COMMENT '配置参数值',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='配置文件';
+
+/*Data for the table `config` */
+
+insert  into `config`(`id`,`name`,`value`) values (1,'picture1','upload/picture1.jpg'),(2,'picture2','upload/picture2.jpg'),(3,'picture3','upload/picture3.jpg');
+
+/*Table structure for table `discussactivityexperience` */
+
+DROP TABLE IF EXISTS `discussactivityexperience`;
+
+CREATE TABLE `discussactivityexperience` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `refid` bigint(20) NOT NULL COMMENT '关联表id',
+  `userid` bigint(20) NOT NULL COMMENT '用户id',
+  `nickname` varchar(200) DEFAULT NULL COMMENT '用户名',
+  `content` longtext NOT NULL COMMENT '评论内容',
+  `reply` longtext COMMENT '回复内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 COMMENT='活动心得评论表';
+
+/*Data for the table `discussactivityexperience` */
+
+insert  into `discussactivityexperience`(`id`,`addtime`,`refid`,`userid`,`nickname`,`content`,`reply`) values (101,'2022-05-06 08:34:21',1,1,'用户名1','评论内容1','回复内容1'),(102,'2022-05-06 08:34:21',2,2,'用户名2','评论内容2','回复内容2'),(103,'2022-05-06 08:34:21',3,3,'用户名3','评论内容3','回复内容3'),(104,'2022-05-06 08:34:21',4,4,'用户名4','评论内容4','回复内容4'),(105,'2022-05-06 08:34:21',5,5,'用户名5','评论内容5','回复内容5'),(106,'2022-05-06 08:34:21',6,6,'用户名6','评论内容6','回复内容6');
+
+/*Table structure for table `messages` */
+
+DROP TABLE IF EXISTS `messages`;
+
+CREATE TABLE `messages` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `userid` bigint(20) NOT NULL COMMENT '留言人id',
+  `username` varchar(200) DEFAULT NULL COMMENT '用户名',
+  `content` longtext NOT NULL COMMENT '留言内容',
+  `cpicture` varchar(200) DEFAULT NULL COMMENT '留言图片',
+  `reply` longtext COMMENT '回复内容',
+  `rpicture` varchar(200) DEFAULT NULL COMMENT '回复图片',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1712056252852 DEFAULT CHARSET=utf8 COMMENT='交流反馈';
+
+/*Data for the table `messages` */
+
+insert  into `messages`(`id`,`addtime`,`userid`,`username`,`content`,`cpicture`,`reply`,`rpicture`) values (1712056252851,'2024-04-02 19:10:51',1711666347865,'202009601104','感觉生活很累',NULL,NULL,NULL);
+
+/*Table structure for table `news` */
+
+DROP TABLE IF EXISTS `news`;
+
+CREATE TABLE `news` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `title` varchar(200) NOT NULL COMMENT '标题',
+  `introduction` longtext COMMENT '简介',
+  `picture` varchar(200) NOT NULL COMMENT '图片',
+  `content` longtext NOT NULL COMMENT '内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='公告信息';
+
+/*Data for the table `news` */
+
+insert  into `news`(`id`,`addtime`,`title`,`introduction`,`picture`,`content`) values (1,'2023-06-06 09:35:22','关于去洗碗','去洗碗 ≠ 只洗碗\n去洗碗 = \n清洗碗盘餐具、\n洗锅子锅盖、\n菜瓜布刷一下洗碗槽、\n拿抹布擦餐桌、\n拿抹布擦厨房地面的油渍水渍、\n拿抹布擦灶台、\n洗碗精清洗擦完的抹布、\n有空磨个菜刀、\n整理水槽裡炒菜后的的厨馀、\n拿抹布把水槽擦乾。\n原来\n这不是大家都知道的常识啊\n1.上述都做完后 碗盘的水也滴的差不多\n   记得擦干再收纳起来\n2.洗之前 寻一下有没有被放置的杯子\n3.瓦斯炉开关也建议抹一下，容易积油垢\n4.离开前 再次确认下 通风/瓦斯开关\n    总有可能疏漏 多道保险 拥抱平安\n5. 厨馀要封口，避免引虫\n','upload/Announcement-1.png','<p>去洗碗 ≠ 只洗碗 去洗碗 = 清洗碗盘餐具、 洗锅子锅盖、 菜瓜布刷一下洗碗槽、 拿抹布擦餐桌、 拿抹布擦厨房地面的油渍水渍、 拿抹布擦灶台、 洗碗精清洗擦完的抹布、 有空磨个菜刀、 整理水槽裡炒菜后的的厨馀、 拿抹布把水槽擦乾。 原来 这不是大家都知道的常识啊 1.上述都做完后 碗盘的水也滴的差不多 记得擦干再收纳起来 2.洗之前 寻一下有没有被放置的杯子 3.瓦斯炉开关也建议抹一下，容易积油垢 4.离开前 再次确认下 通风/瓦斯开关 总有可能疏漏 多道保险 拥抱平安 5. 厨馀要封口，避免引虫</p>'),(2,'2023-06-07 10:36:23','关于最强CP','最强CP : GOOGLE 云 / 微软云...等\n优: \n        不用担心实体遗失, 只需要担心忘记密码\n        可按需求进阶\n缺:\n        你要会基本操作 (很多看似会用 但大多不一定都懂)\n        会被绑定服务商\n延伸: \n除了GOOGLE云外, 如果有超大空间需求\n在计算衡量之外, 甚至可以用 AWS S3等\n优点: \n     针对大需求 超便宜 便宜到不行\n    (当然你的需求要有过门槛 只要10T甚麼的 需求太低不推了)\n缺点:\n     对应手机或是像GOOGLE云 不会那麼直觉好用\n     (因為它是专业用) 技术含量需求最高\n','upload/Announcement-2.png','<p>最强CP : GOOGLE 云 / 微软云...等 优: 不用担心实体遗失, 只需要担心忘记密码 可按需求进阶 缺: 你要会基本操作 (很多看似会用 但大多不一定都懂) 会被绑定服务商 延伸: 除了GOOGLE云外, 如果有超大空间需求 在计算衡量之外, 甚至可以用 AWS S3等 优点: 针对大需求 超便宜 便宜到不行 (当然你的需求要有过门槛 只要10T甚麼的 需求太低不推了) 缺点: 对应手机或是像GOOGLE云 不会那麼直觉好用 (因為它是专业用) 技术含量需求最高</p>'),(3,'2023-06-08 11:37:24','关于公交趣事','坐公交的时候，\n看到一名孕妇走进来\n我就立刻让坐，\n来这个位子给你\n没想到她立刻说不要，\n然后转过身去\n為什麼？\n為什麼不接受我的好意呢？\n然后朋友跟我说，\n会不会人家根本没怀孕？\n','upload/Announcement-3.png','<p>坐公交的时候， 看到一名孕妇走进来 我就立刻让坐， 来这个位子给你 没想到她立刻说不要， 然后转过身去 為什麼？ 為什麼不接受我的好意呢？ 然后朋友跟我说， 会不会人家根本没怀孕？</p>'),(4,'2023-06-08 11:38:24','关于成长','成长是甚麼\n我的答案 好多 或许这是我思考过无数遍的问题之一\n是食不知其味\n是假面带著\n是融入社会\n是学会附和他人\n是人情世故\n还有好多答案\n可我还是不懂\n这一点都不简单\n','upload/Announcement-4.png','<p>成长是甚麼 我的答案 好多 或许这是我思考过无数遍的问题之一 是食不知其味 是假面带著 是融入社会 是学会附和他人 是人情世故 还有好多答案 可我还是不懂 这一点都不简单</p>'),(5,'2023-06-09 11:38:24','关于程序员如何吵架','你是白痴吗？\n我不是！\n<blocked>\n<blocked invalid>\n','upload/Announcement-5.png','<p>你是白痴吗？ 我不是！   </p>'),(6,'2023-06-10 11:38:24','夏天蒙太奇','在歌里\n长夜苏醒\n太阳炙热\n绿意盎然\n我们抢先尝一口沁凉的西瓜\n蜉蝣起舞\n撼大树\n第一声蝉鸣叫\n回到最心爱的季节\n我们一起练习自由\n练习勇敢\n练习成长\n','upload/Announcement-6.png','<p>在歌里 长夜苏醒 太阳炙热 绿意盎然 我们抢先尝一口沁凉的西瓜 蜉蝣起舞 撼大树 第一声蝉鸣叫 回到最心爱的季节 我们一起练习自由 练习勇敢 练习成长</p>');
+
+/*Table structure for table `storeup` */
+
+DROP TABLE IF EXISTS `storeup`;
+
+CREATE TABLE `storeup` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `userid` bigint(20) NOT NULL COMMENT '用户id',
+  `refid` bigint(20) DEFAULT NULL COMMENT '收藏id',
+  `tablename` varchar(200) DEFAULT NULL COMMENT '表名',
+  `name` varchar(255) DEFAULT NULL,
+  `picture` varchar(200) NOT NULL COMMENT '收藏图片',
+  `type` varchar(200) DEFAULT '1' COMMENT '类型(1:收藏,21:赞,22:踩)',
+  `inteltype` varchar(200) DEFAULT NULL COMMENT '推荐类型',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1713420992450 DEFAULT CHARSET=utf8 COMMENT='收藏表';
+
+/*Data for the table `storeup` */
+
+insert  into `storeup`(`id`,`addtime`,`userid`,`refid`,`tablename`,`name`,`picture`,`type`,`inteltype`) values (1713403520151,'2024-04-18 09:25:19',1711666347865,6,'activityreflection','活动名称6','upload/activityShareImage6.png','1',NULL),(1713420992449,'2024-04-18 14:16:32',1711666347865,2,'activityreflection','活动名称2','upload/activityShareImage2.png','1',NULL);
+
+/*Table structure for table `token` */
+
+DROP TABLE IF EXISTS `token`;
+
+CREATE TABLE `token` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `userid` bigint(20) NOT NULL COMMENT '用户id',
+  `username` varchar(100) NOT NULL COMMENT '用户名',
+  `tablename` varchar(100) DEFAULT NULL COMMENT '表名',
+  `role` varchar(100) DEFAULT NULL COMMENT '角色',
+  `token` varchar(200) NOT NULL COMMENT '密码',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增时间',
+  `expiratedtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '过期时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='token表';
+
+/*Data for the table `token` */
+
+insert  into `token`(`id`,`userid`,`username`,`tablename`,`role`,`token`,`addtime`,`expiratedtime`) values (1,1,'abo','users','管理员','8xf70vwuqziyxfh3p1img7v8dafuuf2k','2022-05-06 08:37:36','2024-04-18 15:15:33'),(2,1711666347865,'202009601104','volunteer','志愿者','z72dwnwk7omiptnjdipidf5d1txxcbsq','2024-03-29 06:57:43','2024-04-21 11:57:15'),(3,1712096810266,'12345678','volunteer','志愿者','a87a1lv05aqp1qq11k51uqqkr76i1vq6','2024-04-03 06:28:36','2024-04-04 07:56:10'),(4,1713330783959,'202009601107','volunteer','志愿者','25yb3furicc5jex3sth24nlr2i9hwxmo','2024-04-17 13:14:21','2024-04-17 14:14:21');
+
+/*Table structure for table `users` */
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `username` varchar(100) NOT NULL COMMENT '用户名',
+  `password` varchar(100) NOT NULL COMMENT '密码',
+  `role` varchar(100) DEFAULT '管理员' COMMENT '角色',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+/*Data for the table `users` */
+
+insert  into `users`(`id`,`username`,`password`,`role`,`addtime`) values (1,'abo','abo','管理员','2022-05-06 08:34:21'),(2,'202009601104','123','志愿者','2024-04-17 00:28:33');
+
+/*Table structure for table `volunteer` */
+
+DROP TABLE IF EXISTS `volunteer`;
+
+CREATE TABLE `volunteer` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `studentid` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `profilepicture` varchar(255) DEFAULT NULL,
+  `age` varchar(255) DEFAULT NULL,
+  `classes` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phonenumber` varchar(255) DEFAULT NULL,
+  `is_Reviewed` varchar(255) DEFAULT NULL,
+  `review_Response` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `student_id` (`studentid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1713398089842 DEFAULT CHARSET=utf8 COMMENT='志愿者';
+
+/*Data for the table `volunteer` */
+
+insert  into `volunteer`(`id`,`addtime`,`studentid`,`password`,`name`,`gender`,`profilepicture`,`age`,`classes`,`email`,`phonenumber`,`is_Reviewed`,`review_Response`) values (1711666347865,'2024-03-29 06:52:27','202009601104','123456','nsk','女','upload/1713403555104.jpg','18','软件Q203','nsk@qq.com','13530757666','是','123'),(1711666481369,'2024-03-29 06:54:41','202009601105','123123','nnn',NULL,NULL,'18','软件Q203','nnn@qq.com','18878153418','是','dsa'),(1712096810266,'2024-04-03 06:26:50','12345678','123','nnn',NULL,NULL,'18','123','123@qq.com','12345678912','是',NULL),(1713330783959,'2024-04-17 13:13:03','202009601107','123','nsk',NULL,NULL,'33','123','123123@qq.com','12213822480','是',NULL),(1713398089841,'2024-04-18 07:54:49','202009601108','123','hello',NULL,NULL,'软件Q203',NULL,'123@qq.com','10086100866','否',NULL);
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
